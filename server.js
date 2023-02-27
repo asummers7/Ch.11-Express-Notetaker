@@ -1,7 +1,7 @@
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const db = require("./db/db.json");
+let db = require("./db/db.json");
 const fs = require("fs");
 const path = require('path')
 
@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/api/notes", (req, res) => {
+  db = JSON.parse(fs.readFileSync('./db/db.json')) || []
   console.info(`${req.method} request has been received to get notes`);
   res.json(db);
 });
@@ -24,11 +25,11 @@ app.post("/api/notes", (req, res) => {
   if (!req.body.title || !req.body.text) {
     return res.status(400).send("make sure to add either a title or text");
   }
-
-  const parsedData = JSON.stringify(notes);
+  db.push(notes);
+  const parsedData = JSON.stringify(db);
   console.info(`${req.method} request has been received to add notes`);
 
-  fs.writeFileSync(path.join(__dirname, './db/db.json'), parsedData, (err) =>
+  fs.writeFileSync('./db/db.json', parsedData, (err) =>
     err
       ? console.error(err)
       : console.log(`Notes for ${notes.title} has been written to JSON file`)
