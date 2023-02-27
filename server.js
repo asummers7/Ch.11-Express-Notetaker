@@ -3,7 +3,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 let db = require("./db/db.json");
 const fs = require("fs");
-const path = require('path')
+const path = require('path');
+const uuid = require('uuid');
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -20,6 +21,7 @@ app.post("/api/notes", (req, res) => {
   const notes = {
     title: req.body.title,
     text: req.body.text,
+    id: uuid.v4()
   };
 
   if (!req.body.title || !req.body.text) {
