@@ -5,9 +5,6 @@
 This is a project designed to get the student comfortable with using express in node. The starter code was provided with front-end functionality and design. The student was to create a backend serever to provide and upload data. Then finally deploy the app to Heroku. 
 
 ## Table of Contents
-- [Ch.11-Express-Notetaker](#ch11-express-notetaker)
-  - [Description](#description)
-  - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
   - [License](#license)
